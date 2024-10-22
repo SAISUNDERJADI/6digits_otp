@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP and Date Calculations</title>
+    <script>
+        function generateOTP() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let otp = '';
+            for (let i = 0; i < 6; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                otp += characters[randomIndex];
+            }
+            document.getElementById('otpResult').textContent = `Your OTP is: ${otp}`;
+        }
+
+        function calculateDaysFromAge() {
+            const age = Number(document.getElementById('ageInput').value);
+            const daysInYear = 365.25; // Accounting for leap years
+            const daysLived = Math.floor(age * daysInYear);
+            document.getElementById('daysResult').textContent = `You have lived approximately ${daysLived} days.`;
+        }
+
+        function calculateDateDifference() {
+            const startDate = new Date(document.getElementById('startDateInput').value);
+            const endDate = new Date(document.getElementById('endDateInput').value);
+
+            let years = endDate.getFullYear() - startDate.getFullYear();
+            let months = endDate.getMonth() - startDate.getMonth();
+            let days = endDate.getDate() - startDate.getDate();
+
+            if (days < 0) {
+                months--;
+                days += new Date(endDate.getFullYear(), endDate.getMonth(), 0).getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            document.getElementById('dateDifferenceResult').textContent = `Difference: ${years} years, ${months} months, and ${days} days.`;
+        }
+    </script>
+</head>
+<body>
+    <h1>OTP and Date Calculations</h1>
+
+    <h2>Generate OTP</h2>
+    <button onclick="generateOTP()">Generate OTP</button>
+    <p id="otpResult"></p>
+
+    <h2>Calculate Days from Age</h2>
+    <input type="number" id="ageInput" placeholder="Enter your age" />
+    <button onclick="calculateDaysFromAge()">Calculate Days</button>
+    <p id="daysResult"></p>
+
+    <h2>Calculate Date Difference</h2>
+    <input type="date" id="startDateInput" />
+    <input type="date" id="endDateInput" />
+    <button onclick="calculateDateDifference()">Calculate Difference</button>
+    <p id="dateDifferenceResult"></p>
+</body>
+</html>
